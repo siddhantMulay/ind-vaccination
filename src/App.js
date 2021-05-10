@@ -1,33 +1,22 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { hot } from "react-hot-loader/root";
 import React from "react";
+import { Provider } from "react-redux";
+import globalStore from "./store/store";
+import { hot } from "react-hot-loader/root";
 
-import Logo from "./logo.svg";
-
-import "./App.css";
+// Styles
+import "./styles/common.css";
 import "antd/dist/antd.css";
 
-import styles from "./styles/common.scss";
+// Pages
+import Home from "@src/pages/Home";
 
 function App() {
   return (
-    <div>
-      <header className="App-header">
-        <Logo className="App-logo" alt="logo" />
-        <p className={styles.App}>
-          Edit kkasdasdasdasdasdasdasdasdasdasd save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={globalStore}>
+      <Home />
+    </Provider>
   );
 }
 

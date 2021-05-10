@@ -1,0 +1,59 @@
+@import "../../styles/variables.scss";
+
+.Dropdown {
+  width: 100% !important;
+  min-width: 260px;
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px !important;
+
+  input {
+    height: 100% !important;
+    color: #1b1b1b;
+    &::placeholder {
+      color: #464646 !important;
+    }
+  }
+}
+
+:global {
+  .customDropdown {
+    .ant-select-arrow {
+      transition: all 0.3s ease;
+    }
+
+    &Active {
+      .ant-select-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .ant-select {
+    &-dropdown {
+      border-radius: 4px !important;
+    }
+    &-selection-item {
+      font-weight: 600;
+    }
+    &-selector {
+      border-radius: 4px !important;
+      padding: 9px 32px 9px 9px !important;
+      height: 38px !important;
+      align-items: center;
+      border: 1px solid #d4d3ca !important;
+    }
+    &-item-option {
+      font-family: "Roboto", sans-serif;
+      font-size: 13px !important;
+
+      &-selected:not(.ant-select-item-option-disabled) {
+        font-weight: 400;
+        background-color: $dropdownHover;
+      }
+      &-active:not(.ant-select-item-option-disabled) {
+        font-weight: 400;
+        background-color: $dropdownHover;
+      }
+    }
+  }
+}

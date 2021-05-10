@@ -1,0 +1,9 @@
+@import "../../styles/variables.scss";
+
+.Home {
+  &Content {
+    margin-top: $headerHeight;
+    height: calc(100vh - 90px);
+    padding: 15px;
+  }
+}

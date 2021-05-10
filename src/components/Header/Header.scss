@@ -1,0 +1,37 @@
+@import "../../styles/variables.scss";
+
+.Header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: $headerBgColor;
+  height: $headerHeight;
+  left: 0;
+  z-index: 2;
+  transition: all 0.3s ease;
+  padding: 32px 56px;
+
+  &Content {
+    transition: all 0.4s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    &Main {
+      &Title {
+        font-size: 24px;
+        font-weight: 500;
+        color: $headerTextColor;
+      }
+    }
+
+    &Title {
+      color: $headerTextColor;
+      font-size: 16px;
+      font-weight: 400;
+      font-family: 'Roboto', sans-serif;
+    }
+  }
+}
