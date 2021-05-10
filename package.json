@@ -1,0 +1,74 @@
+{
+  "name": "default",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "author": {
+    "name": "Siddhant Mulay",
+    "email": "mulay.siddhant@gmail.com"
+  },
+  "scripts": {
+    "start": "webpack serve --config config/webpack.dev.js",
+    "build": "webpack --config config/webpack.prod.js",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.7.3",
+    "core-js": "^3.11.1",
+    "css-loader": "^5.0.0",
+    "file-loader": "^6.1.1",
+    "node-sass": "^4.14.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.1",
+    "react-scripts": "4.0.0",
+    "redux": "^4.0.5",
+    "regenerator-runtime": "^0.13.7",
+    "sass-loader": "^10.0.4",
+    "style-loader": "^2.0.0",
+    "svg-react-loader": "^0.4.6",
+    "url-loader": "^4.1.1",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.2.0",
+    "path": "^0.12.7",
+    "react-hot-loader": "^4.13.0",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.2.0"
+  }
+}
