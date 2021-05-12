@@ -3,3 +3,7 @@
   overflow-y: hidden;
   background: var(--pageBgColor);
 }
+
+html {
+  overflow-y: hidden;
+}

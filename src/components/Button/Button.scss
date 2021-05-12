@@ -8,14 +8,26 @@
   font-weight: 500;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
+  border: none;
+  transition: all 0.3s ease;
 
-  &Large{
+  &Large {
     width: 260px;
     font-size: 16px;
   }
 
   &:hover,
   &:focus {
+    background: $primaryColor;
+    color: white;
+    transform: translateY(-2px);
+  }
+}
 
+@media screen and (max-width: 600px) {
+  .Button {
+    &Large {
+      width: 180px;
+    }
   }
 }

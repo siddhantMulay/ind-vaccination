@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+.Drawer {
+  height: calc(100% - 85px) !important;
+  max-width: 1440px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+:global {
+  .ant-drawer {
+    &-header {
+      padding: 25px;
+      text-align: center;
+      border-bottom: 1px solid $borderColor;
+    }
+    &-title {
+      font-size: 20px;
+      font-weight: 500;
+    }
+    &-content {
+      border-radius: 12px 12px 0px 0px;
+      &-wrapper {
+        border-radius: 12px 12px 0px 0px;
+      }
+    }
+    &-body {
+      padding: 0px;
+    }
+  }
+}
