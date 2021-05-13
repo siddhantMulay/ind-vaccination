@@ -4,16 +4,24 @@
   background: $primaryColor;
   color: white;
   border-radius: 4px;
-  height: 52px;
   font-weight: 500;
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
   border: none;
   transition: all 0.3s ease;
+  font-size: 14px;
+  height: 40px;
+  cursor: pointer;
+
+  &:disabled {
+    background: $primaryColor;
+    color: white;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
   &Large {
     width: 260px;
     font-size: 16px;
+    height: 52px;
   }
 
   &:hover,

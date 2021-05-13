@@ -1,0 +1,55 @@
+@import "../../../styles/variables.scss";
+
+.RHS {
+  width: 100%;
+}
+
+.Table {
+  &Button {
+    transition: all 0.2s ease;
+    transform: translateX(-5px);
+    opacity: 0;
+    pointer-events: none;
+
+    &Active {
+      transform: translateX(0px);
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+:global {
+  .ant-table {
+    * {
+      transition: all 0.3s ease;
+    }
+    &-thead {
+      tr {
+        th {
+          background: $headerBgColor;
+          font-weight: 600;
+          color: $primaryColor;
+        }
+      }
+    }
+
+    &-tbody {
+      tr {
+        &.ant-table-row {
+          .ant-table-cell {
+            &:last-child {
+              text-align: right;
+            }
+          }
+          &:hover {
+            td {
+              background: $tableRowHoverColor;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
-import moment from "moment";
 import React, { useState } from "react";
-import { DatePicker, Table } from "antd";
+import { useSelector, useDispatch } from "react-redux";
 
 // Components
 import Link from "@src/components/Link";
@@ -8,8 +7,19 @@ import Button from "@src/components/Button";
 import Dropdown from "@src/components/Dropdown";
 import Drawer from "@src/components/Drawer";
 
+// Containers
+import LandingDrawer from "@src/containers/LandingDrawer";
+
 // API
 import API from "@src/api";
+
+// Actions
+import {
+  selectState,
+  setDistricts,
+  selectDistrict,
+  toggleLandingDrawer,
+} from "@src/store/actions";
 
 // Assets
 import CloseIcon from "@src/assets/icons/Close.svg";
@@ -19,14 +29,16 @@ import { STATES } from "@src/constants";
 
 import styles from "./Landing.scss";
 
-const Landing = (props) => {
+const Landing = () => {
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const { stateSelected, districtSelected, districts, isDrawerOpen } = store;
+
   const [districtsDisabled, setDistrictsDisabled] = useState(true);
   const [districtsLoading, setDistrictsLoading] = useState(false);
-  const [districts, setDistricts] = useState([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // Change State (Geographical :P)
-  const stateChange = (value) => {
+  const stateChange = (value, record) => {
     setDistrictsLoading(true);
     setDistrictsDisabled(true);
     setDistricts([]);
@@ -40,7 +52,14 @@ const Landing = (props) => {
             name: item.district_name,
           }));
 
-          setDistricts(districtsDataList);
+          dispatch(setDistricts(districtsDataList));
+          dispatch(selectState({ id: value, name: record.children }));
+
+          dispatch(
+            selectDistrict({
+              id: undefined,
+            })
+          );
         }
         setDistrictsLoading(false);
         setDistrictsDisabled(false);
@@ -52,59 +71,15 @@ const Landing = (props) => {
       });
   };
 
+  // Change District
+  const districtChange = (value, record) => {
+    dispatch(selectDistrict({ id: value, name: record.children }));
+  };
+
+  // Toggle Landing Drawer
   const toggleDrawer = (toggle) => {
-    setIsDrawerOpen(toggle);
+    dispatch(toggleLandingDrawer(toggle));
   };
-
-  const openDatePicker = () => {
-    setTimeout(() => {
-      return isDrawerOpen;
-    }, 150);
-  };
-
-  const disabledDate = (current) => {
-    // Can not select days before today and today
-    return current < moment().endOf("day");
-  };
-
-  const columns = [
-    {
-      title: "Center Name",
-      dataIndex: "centerName",
-      key: "centerName",
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: "No. of slots",
-      dataIndex: "slots",
-      key: "slots",
-    },
-    {
-      title: "Vaccine Available",
-      dataIndex: "vaccine",
-      key: "vaccine",
-    },
-    {
-      title: "",
-      key: "action",
-      // render: (text, record) => <Button>Book a Slot</Button>,
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      centerName: "ILBS Session Site 3",
-      slots: 32,
-      vaccine: "COVISHIELD",
-    },
-    {
-      key: "2",
-      centerName: "ILBS Session Site 3",
-      slots: 32,
-      vaccine: "COVISHIELD",
-    },
-  ];
 
   return (
     <div className={styles.Landing}>
@@ -124,7 +99,7 @@ const Landing = (props) => {
           placeholder="Select State"
           options={STATES}
           listHeight={150}
-          onChange={stateChange}
+          onChange={(data, record) => stateChange(data, record)}
         />
 
         <Dropdown
@@ -133,45 +108,29 @@ const Landing = (props) => {
           listHeight={150}
           disabled={districtsDisabled}
           loading={districtsLoading}
+          onChange={(data, record) => districtChange(data, record)}
+          value={districtSelected.id}
         />
       </div>
 
-      <Button type="large" onClick={() => toggleDrawer(true)}>
+      <Button
+        disabled={districtSelected.id ? false : true}
+        type="large"
+        onClick={() => toggleDrawer(true)}
+      >
         Search
       </Button>
 
       <Drawer
-        title="Create a new account"
+        title={`${stateSelected.name}, ${districtSelected.name}`}
         placement="bottom"
         onClose={() => toggleDrawer(false)}
         visible={isDrawerOpen}
         closeIcon={<CloseIcon />}
       >
         <div className={styles.LandingDrawer}>
-          <div className={styles.LandingDrawerLHS}>
-            {isDrawerOpen && <DatePicker open disabledDate={disabledDate} showToday={false} /> }
-            <div className={styles.LandingDrawerLHSFilters}>
-              <div className={styles.LandingDrawerLHSFiltersTitle}>Filters</div>
-              <div className={styles.LandingDrawerLHSFilterContainer}>
-                <div className={styles.LandingDrawerLHSFilterItem}>
-                  18+ years
-                </div>
-                <div className={styles.LandingDrawerLHSFilterItem}>
-                  45+ years
-                </div>
-                <div className={styles.LandingDrawerLHSFilterItem}>
-                  Covishield
-                </div>
-                <div className={styles.LandingDrawerLHSFilterItem}>Covaxin</div>
-                <div className={styles.LandingDrawerLHSFilterItem}>Free</div>
-                <div className={styles.LandingDrawerLHSFilterItem}>Paid</div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.LandingDrawerRHS}>
-            <Table columns={columns} dataSource={data} pagination={false} />
-          </div>
+          <LandingDrawer.LHS isDrawerOpen={isDrawerOpen} />
+          <LandingDrawer.RHS />
         </div>
       </Drawer>
     </div>

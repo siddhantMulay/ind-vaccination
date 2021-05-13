@@ -15,6 +15,7 @@ const Dropdown = (props) => {
     loading,
     disabled,
     onChange,
+    value
   } = props;
 
   const [isVisible, setIsVisble] = useState(false);
@@ -41,6 +42,7 @@ const Dropdown = (props) => {
       onChange={onChange}
       suffixIcon={<ArrowIcon />}
       onDropdownVisibleChange={triggerDropdownVisibility}
+      value={value}
     >
       {options.map((item) => (
         <Option key={item.id} id={item.id}>
