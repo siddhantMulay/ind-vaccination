@@ -2,6 +2,7 @@ import { actionTypes } from "./actionTypes";
 
 // Initial state
 const initialState = {
+  states: [],
   stateSelected: {},
   districts: [],
   districtSelected: {},
@@ -10,6 +11,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SET_STATES: {
+      return {
+        ...state,
+        states: action.states,
+      };
+    }
+
     case actionTypes.SELECT_STATE: {
       return {
         ...state,

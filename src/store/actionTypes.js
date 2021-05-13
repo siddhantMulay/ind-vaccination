@@ -1,4 +1,6 @@
 export const actionTypes = {
+  SET_STATES: "SET_STATES",
+
   SELECT_STATE: "SELECT_STATE",
   SET_DISTRICTS: "SET_DISTRICTS",
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Components
@@ -15,6 +15,7 @@ import API from "@src/api";
 
 // Actions
 import {
+  setStates,
   selectState,
   setDistricts,
   selectDistrict,
@@ -32,10 +33,29 @@ import styles from "./Landing.scss";
 const Landing = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const { stateSelected, districtSelected, districts, isDrawerOpen } = store;
+  const { states, stateSelected, districtSelected, districts, isDrawerOpen } =
+    store;
 
+  const [statesDisabled, setStatesDisabled] = useState(true);
   const [districtsDisabled, setDistrictsDisabled] = useState(true);
   const [districtsLoading, setDistrictsLoading] = useState(false);
+
+  useEffect(() => {
+    API.getStateList()
+      .then(({ success, response }) => {
+        if (success) {
+          const statesDataList = response.states.map((item) => ({
+            id: item.state_id,
+            name: item.state_name,
+          }));
+          dispatch(setStates(statesDataList));
+          setStatesDisabled(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   // Change State (Geographical :P)
   const stateChange = (value, record) => {
@@ -46,15 +66,12 @@ const Landing = () => {
     API.stateChange(value)
       .then(({ success, response }) => {
         if (success) {
-          const districtsData = JSON.parse(response.body).districts;
-          const districtsDataList = districtsData.map((item) => ({
+          const districtsDataList = response.districts.map((item) => ({
             id: item.district_id,
             name: item.district_name,
           }));
-
           dispatch(setDistricts(districtsDataList));
           dispatch(selectState({ id: value, name: record.children }));
-
           dispatch(
             selectDistrict({
               id: undefined,
@@ -78,7 +95,19 @@ const Landing = () => {
 
   // Toggle Landing Drawer
   const toggleDrawer = (toggle) => {
+    onSearch();
     dispatch(toggleLandingDrawer(toggle));
+  };
+
+  // On Search Click
+  const onSearch = () => {
+    API.appointments(districtSelected.id)
+      .then(({ success, response }) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -97,9 +126,10 @@ const Landing = () => {
       <div className={styles.LandingCard}>
         <Dropdown
           placeholder="Select State"
-          options={STATES}
+          options={states}
           listHeight={150}
           onChange={(data, record) => stateChange(data, record)}
+          disabled={statesDisabled}
         />
 
         <Dropdown

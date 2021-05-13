@@ -1,10 +1,18 @@
-const BASE_URL =
-  "https://joyr3z7iu0.execute-api.ap-south-1.amazonaws.com/default/vaccination_backend";
+const BASE_URL = "https://cdn-api.co-vin.in/api/v2/";
 
+/* State */
+export const STATE = {
+  GET: { LIST: `${BASE_URL}admin/location/states` },
+};
 
-/* Vaccination */
-export const vaccination = {
-  POST:{
-    LIST: `${BASE_URL}`,
-  }
+/* Districts */
+export const DISTRICTS = {
+  GET: { LIST: `${BASE_URL}admin/location/districts/{state_id}` },
+};
+
+/* Appointments */
+export const APPOINTMENTS = {
+  GET: {
+    LIST: `${BASE_URL}appointment/sessions/public/calendarByDistrict`,
+  },
 };

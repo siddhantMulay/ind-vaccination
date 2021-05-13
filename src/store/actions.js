@@ -1,5 +1,9 @@
 import { actionTypes } from "./actionTypes";
 
+export const setStates = (states) => {
+  return { type: actionTypes.SET_STATES, states };
+};
+
 export const selectState = (state) => {
   return { type: actionTypes.SELECT_STATE, state };
 };
